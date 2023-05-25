@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: java7
+    password: root
+  mail:
+    username: mucahit.idogan@gmail.com
+    password: zzuoibxyrgdsxnth
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+rabbitmq:
+  queueActivate: activate-queue
+  forgotPasswordQueue: forgot-password-queue
+  queue-favorite: favorite-queue

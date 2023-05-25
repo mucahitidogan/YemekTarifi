@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: java7
+    password: root
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/yemektarifi
+    username: postgres
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secretkey: ${secretkey}
+  audience: ${audience}
+  issuer: ${issuer}
+
+rabbitmq:
+  exchange-auth: auth-exchange
+  activateKey: activate-key
+  queueActivate: activate-queue
+  forgotPasswordQueue: forgot-password-queue
+  forgotPasswordBindingKey: forgot-password-key
