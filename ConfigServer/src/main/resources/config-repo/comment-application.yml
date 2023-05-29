@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: yemekTarifi
+      username: Java7User
+      password: root
+
+jwt:
+  secretkey: ${secretkey}
+  audience: ${audience}
+  issuer: ${issuer}
