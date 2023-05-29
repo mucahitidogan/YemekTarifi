@@ -8,17 +8,17 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorType {
 
-    INTERNAL_ERROR(5100, "Sunucu Hatası", HttpStatus.INTERNAL_SERVER_ERROR),
-    BAD_REQUEST(4000, "Parametre Hatası", HttpStatus.BAD_REQUEST),
-    LOGIN_ERROR(4100, "Kullancı adı veya şifre hatalı", HttpStatus.BAD_REQUEST),
-    PASSWORD_ERROR(4200, "Şifreler aynı değil", HttpStatus.BAD_REQUEST),
-    USERNAME_DUPLICATE(4300, "Bu kullanıcı zaten kayıtlı", HttpStatus.BAD_REQUEST),
-    USER_NOT_FOUND(4400, "Böyle bir kullanıcı bulunamadı", HttpStatus.NOT_FOUND),
-    THIS_EMAIL_IS_ALREADY_REGISTER(4500,"Bu email adresi zaten sistemde kayıtlıdır.!",HttpStatus.BAD_REQUEST),
-    ACTIVATE_CODE_ERROR(4600, "Aktivasyon kod hatası", HttpStatus.BAD_REQUEST),
-    INVALID_TOKEN(4700,"Token hatası!",HttpStatus.BAD_REQUEST),
-    TOKEN_NOT_CREATED(4800,"Token oluşturulamadı.",HttpStatus.BAD_REQUEST),
-    ADDRESS_NOT_FOUND(4800,"Address bulunamedı.",HttpStatus.BAD_REQUEST);
+    INTERNAL_ERROR(5100, "Server Error", HttpStatus.INTERNAL_SERVER_ERROR),
+    BAD_REQUEST(4000, "Parameter Error", HttpStatus.BAD_REQUEST),
+    LOGIN_ERROR(4100, "Username or password is wrong", HttpStatus.BAD_REQUEST),
+    PASSWORD_ERROR(4200, "Passwords are not the same", HttpStatus.BAD_REQUEST),
+    USERNAME_DUPLICATE(4300, "This user is already registered", HttpStatus.BAD_REQUEST),
+    USER_NOT_FOUND(4400, "No such user found", HttpStatus.NOT_FOUND),
+    THIS_EMAIL_IS_ALREADY_REGISTER(4500,"This email address is already registered in the system.!",HttpStatus.BAD_REQUEST),
+    ACTIVATE_CODE_ERROR(4600, "Activation code error", HttpStatus.BAD_REQUEST),
+    INVALID_TOKEN(4700,"Token error!",HttpStatus.BAD_REQUEST),
+    TOKEN_NOT_CREATED(4800,"Failed to create token.",HttpStatus.BAD_REQUEST),
+    ADDRESS_NOT_FOUND(4800,"Address not found.",HttpStatus.BAD_REQUEST);
 
     private int code;
     private String message;

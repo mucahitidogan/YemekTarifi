@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        return ResponseEntity.ok("Beklenmeyen bir hata olustu: " + ex.getMessage());
+        return ResponseEntity.ok("An unexpected error has occurred: " + ex.getMessage());
     }
 
     @ExceptionHandler(AuthManagerException.class)
