@@ -3,6 +3,7 @@ package com.yemektarifi.controller;
 import com.yemektarifi.dto.request.*;
 import com.yemektarifi.repository.entity.UserProfile;
 import com.yemektarifi.service.UserProfileService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import static com.yemektarifi.constants.ApiUrls.*;
 public class UserProfileController {
     private final UserProfileService userProfileService;
 
+    @Hidden
     @PostMapping(CREATE)
     public ResponseEntity<Boolean> createUser(@RequestBody CreateUserProfileRequestDto dto){
         return ResponseEntity.ok(userProfileService.createUser(dto));
@@ -27,57 +29,63 @@ public class UserProfileController {
         return ResponseEntity.ok(userProfileService.findAll());
     }
 
-    @PutMapping("/change-password")
+    @PutMapping(CHANGE_PASSWORD)
     public ResponseEntity<Boolean> changePassword(@RequestBody ChangePasswordRequestDto dto){
         return ResponseEntity.ok(userProfileService.changePassword(dto));
     }
 
-    @PutMapping("/forgot-password")
+    @Hidden
+    @PutMapping(FORGOT_PASSWORD)
     public ResponseEntity<Boolean> forgotPassword(@RequestBody FromAuthServiceForgotPasswordUpdateRequestDto dto){
         return ResponseEntity.ok(userProfileService.forgotPassword(dto));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<UserProfile> update(@RequestBody UserProfileUpdateRequestDto dto){
-        return ResponseEntity.ok(userProfileService.update(dto));
+    @PutMapping(UPDATE+"/{token}")
+    public ResponseEntity<UserProfile> update(@PathVariable String token, @RequestBody UserProfileUpdateRequestDto dto){
+        return ResponseEntity.ok(userProfileService.update(token, dto));
     }
 
-    @GetMapping("/activate-status/{authId}")
+    @Hidden
+    @GetMapping(ACTIVATE_STATUS+"/{authId}")
     public ResponseEntity<Boolean> activateStatus(@PathVariable Long authId){
         return ResponseEntity.ok(userProfileService.activateStatus(authId));
     }
 
-    @DeleteMapping("/delete/{token}")
+    @DeleteMapping(DELETE+"/{token}")
     public ResponseEntity<Boolean> delete(@PathVariable String token){
         return ResponseEntity.ok(userProfileService.delete(token));
     }
 
-    @GetMapping("/get-username-from-user-profile-to-comment/{authId}")
+    @Hidden
+    @GetMapping(GET_USERNAME_FROM_USER_PROFILE_TO_COMMENT+"/{authId}")
     public ResponseEntity<String> getUsernameFromUserProfileToComment(@PathVariable Long authId){
         return ResponseEntity.ok(userProfileService.getUsernameFromUserProfileToComment(authId));
     }
 
-    @PutMapping("/add-favorite-recipe/{token}/{recipeId}")
+    @PutMapping(ADD_FAVORITE_RECIPE+"/{token}/{recipeId}")
     public ResponseEntity<Boolean> addFavoriteRecipe(@PathVariable String token, @PathVariable String recipeId){
         return ResponseEntity.ok(userProfileService.addFavoriteRecipe(token, recipeId));
     }
 
-    @PutMapping("/remove-favorite-recipe/{token}/{recipeId}")
+    @PutMapping(REMOVE_FAVORITE_RECIPE+"/{token}/{recipeId}")
     public ResponseEntity<Boolean> removeFavoriteRecipe(@PathVariable String token, @PathVariable String recipeId){
         return ResponseEntity.ok(userProfileService.removeFavoriteRecipe(token, recipeId));
     }
 
-    @PutMapping( "remove-favorite-recipe/{recipeId}")
+    @Hidden
+    @PutMapping( REMOVE_FAVORITE_RECIPE+"/{recipeId}")
     public ResponseEntity<Boolean> removeUserProfileFavoriteRecipe(@PathVariable String recipeId){
         return ResponseEntity.ok(userProfileService.removeUserProfileFavoriteRecipe(recipeId));
     }
 
-    @GetMapping("/get-username-and-id-from-user-profile-to-comment/{authId}")
+    @Hidden
+    @GetMapping(GET_USERNAME_AND_ID_FROM_USER_PROFILE_TO_COMMENT+"/{authId}")
     public ResponseEntity<GetUsernameAndUserIdFromUserProfileRequestDto> getUsernameAndIdFromUserProfileToComment(@PathVariable Long authId){
         return  ResponseEntity.ok(userProfileService.getUsernameAndIdFromUserProfileToComment(authId));
     }
 
-    @PostMapping( "check-favorite-category-and-send-mail")
+    @Hidden
+    @PostMapping( CHECK_FAVORITE_CATEGORY_AND_SEND_MAIL)
     public ResponseEntity<Boolean> checkFavoriteCategorySendMail(@RequestBody FromRecipeNewRecipeCheckFavoriteCategoryRequestDto dto){
         return ResponseEntity.ok(userProfileService.checkFavoriteCategorySendMail(dto));
     }

@@ -38,6 +38,11 @@ ext {
             //MailSender
             springBootMailSender        : "org.springframework.boot:spring-boot-starter-mail:$versions.springBoot",
 
+            //Config-server
+            springCloudConfigServer     : "org.springframework.cloud:spring-cloud-config-server:$versions.springCloud",
+            springCloudConfigClient     : "org.springframework.cloud:spring-cloud-config-client:$versions.springCloud",
+            springCloudConfigStarter    : "org.springframework.cloud:spring-cloud-starter-config:$versions.springCloud",
+
             //elasticsearch
             //springBootElasticSearch: "org.springframework.boot:spring-boot-starter-data-elasticsearch:$versions.springBoot"
     ]

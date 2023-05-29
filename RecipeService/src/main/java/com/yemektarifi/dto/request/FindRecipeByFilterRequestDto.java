@@ -14,8 +14,8 @@ import java.util.List;
 @Builder
 public class FindRecipeByFilterRequestDto {
 
-    private List<String> categoryIds = new ArrayList<>();
+    private List<String> categoryIds;
     private String recipeName;
-    private List<String> ingredientNames = new ArrayList<>();
+    private List<String> ingredientNames;
 
 }

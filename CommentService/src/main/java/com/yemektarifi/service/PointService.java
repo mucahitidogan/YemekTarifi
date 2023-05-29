@@ -66,7 +66,7 @@ public class PointService extends ServiceManager<Point, String> {
     }
 
     public List<Point> findAll(){
-        return findAll();
+        return pointRepository.findAll();
     }
 
     public List<Point> findByUserProfileId(String userProfileId) {

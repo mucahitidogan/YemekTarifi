@@ -1,27 +1,8 @@
-server:
-  port: 8084
-
 spring:
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: java7
-    password: root
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: yemekTarifi
-      username: Java7User
-      password: root
-      auto-index-creation: true
-
-jwt:
-  secretkey: ${secretkey}
-  audience: ${audience}
-  issuer: ${issuer}
-
-rabbitmq:
-  exchange-userProfile: userProfile-exchange
-  favorite-userProfile-key: userProfile-activate-key
-  queue-favorite: favorite-queue
+  cloud:
+    config:
+      uri: http://localhost:8888
+  config:
+    import: "configserver:"
+  application:
+    name: userprofile-application

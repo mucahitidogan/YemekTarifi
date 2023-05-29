@@ -30,11 +30,6 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
-    @DeleteMapping(DELETE_BY_ID + "/{categoryId}/{token}")
-    public ResponseEntity<Boolean> deleteCategoryById(@PathVariable String token, @PathVariable String categoryId){
-        return ResponseEntity.ok(categoryService.deleteCategoryById(token, categoryId));
-    }
-
     @PutMapping(UPDATE + "/{token}")
     public ResponseEntity<UpdateCategoryResponseDto> updateCategory(@PathVariable String token, @RequestBody UpdateCategoryRequestDto dto){
         return ResponseEntity.ok(categoryService.updateCategory(token, dto));

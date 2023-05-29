@@ -5,10 +5,12 @@ import com.yemektarifi.dto.response.SaveRecipeResponseDto;
 import com.yemektarifi.dto.response.UpdateRecipeResponseDto;
 import com.yemektarifi.repository.entity.Recipe;
 import com.yemektarifi.service.RecipeService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.yemektarifi.constants.ApiUrls.*;
@@ -29,9 +31,9 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.findAll());
     }
 
-    @GetMapping(FIND_ALL+"with-cache")
+    @GetMapping(FIND_ALL_WITH_CACHE)
     public ResponseEntity<List<Recipe>> findAllWithCache(){
-        return ResponseEntity.ok(recipeService.findAll());
+        return ResponseEntity.ok(recipeService.findAllWithCache());
     }
 
     @PutMapping(UPDATE + "/{token}")
@@ -44,62 +46,58 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.deleteRecipe(token, recipeId));
      }
 
-    @GetMapping("/is-recipe-exist/{recipeId}")
+    @Hidden
+    @GetMapping(IS_RECIPE_EXIST+"/{recipeId}")
     public ResponseEntity<Boolean> isRecipeExist(@PathVariable String recipeId){
         return ResponseEntity.ok(recipeService.isRecipeExist(recipeId));
     }
 
-    @PutMapping("/add-comment-id-to-recipe")
+    @Hidden
+    @PutMapping(ADD_COMMENT_ID_TO_RECIPE)
     public ResponseEntity<Boolean> addCommentIdToRecipe(@RequestBody FromCommentAddCommentRequestDto dto){
         return ResponseEntity.ok(recipeService.addCommentIdToRecipe(dto));
     }
 
-    @DeleteMapping("/delete-comment")
+    @Hidden
+    @DeleteMapping(DELETE_COMMENT)
     public ResponseEntity<Boolean> deleteComment(@RequestBody FromCommentDeleteCommentRequestDto dto){
         return ResponseEntity.ok(recipeService.deleteComment(dto));
     }
 
-    @PutMapping("/add-point-id-to-recipe")
+    @Hidden
+    @PutMapping(ADD_POINT_ID_TO_RECIPE)
     public ResponseEntity<Boolean> addPointIdToRecipe(@RequestBody FromPointAddPointIdRequestDto dto){
         return ResponseEntity.ok(recipeService.addPointIdToRecipe(dto));
     }
 
-    @DeleteMapping("/delete-pointId")
+    @Hidden
+    @DeleteMapping(DELETE_POINT_ID)
     public ResponseEntity<Boolean> deletePointIdRecipe(@RequestBody FromPointDeletePointIdRequestDto dto){
         return ResponseEntity.ok(recipeService.deletePointIdRecipe(dto));
     }
 
-    @GetMapping("/find-recipe-by-category")
-    public ResponseEntity<List<Recipe>> findRecipeByCategory(@RequestBody List<String> categoryIdList){
-        return ResponseEntity.ok(recipeService.findRecipeByCategory(categoryIdList));
+    @GetMapping(FIND_RECIPE_BY_CATEGORY)
+    public ResponseEntity<List<Recipe>> findRecipeByCategory(CategoryIdListRquestDto dto){
+        return ResponseEntity.ok(recipeService.findRecipeByCategory(dto));
     }
 
-    @GetMapping("/find-recipe-by-ingredient")
-    public ResponseEntity<List<Recipe>> findRecipeByIngredient(List<String> ingredientNameList){
-        return ResponseEntity.ok(recipeService.findRecipeByIngredient(ingredientNameList));
+    @GetMapping(FIND_RECIPE_BY_INGREDIENT)
+    public ResponseEntity<List<Recipe>> findRecipeByIngredient(IngredientNameListRequestDto dto){
+        return ResponseEntity.ok(recipeService.findRecipeByIngredient(dto));
     }
 
-    @GetMapping("/find-recipe-by-recipe-name")
+    @GetMapping(FIND_RECIPEBY_RECIPE_NAME)
     public ResponseEntity<List<Recipe>> findRecipeByRecipeName(String recipeName){
         return ResponseEntity.ok(recipeService.findRecipeByRecipeName(recipeName));
     }
 
-    @GetMapping("/find-recipe-by-filter")
+    @GetMapping(FIND_RECIPE_BY_FILTER)
     public ResponseEntity<List<Recipe>> findRecipeByFilter(FindRecipeByFilterRequestDto dto){
         return ResponseEntity.ok(recipeService.findRecipeByFilter(dto));
     }
 
-    @GetMapping("/sort-recipe-by-calorie")
+    @GetMapping(SORT_RECIPE_BY_CALORIE)
     public ResponseEntity<List<Recipe>> sortRecipeByCalorie(){
         return ResponseEntity.ok(recipeService.sortRecipeByCalorie());
     }
-
-
-
-
-
-
-
-
-
 }

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthService/YemekTarifi.AuthService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthService/YemekTarifi.AuthService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CommentService/YemekTarifi.CommentService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CommentService/YemekTarifi.CommentService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ConfigServer/YemekTarifi.ConfigServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ConfigServer/YemekTarifi.ConfigServer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MailService/YemekTarifi.MailService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MailService/YemekTarifi.MailService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/RecipeService/YemekTarifi.RecipeService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/RecipeService/YemekTarifi.RecipeService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/UserProfileService/YemekTarifi.UserProfileService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/UserProfileService/YemekTarifi.UserProfileService.main.iml" />

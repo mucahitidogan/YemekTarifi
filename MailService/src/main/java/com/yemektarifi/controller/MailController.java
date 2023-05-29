@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class MailController {
 
     private final MailService mailService;
+
+
     @PostMapping("activate-code")
     public ResponseEntity<Boolean> forgotPasswordMail(@RequestBody ActivateCodeMailModel activateCodeMailModel){
         return ResponseEntity.ok(mailService.sendActivateCode(activateCodeMailModel));

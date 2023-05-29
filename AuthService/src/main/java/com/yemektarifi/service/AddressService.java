@@ -45,6 +45,6 @@ public class AddressService extends ServiceManager<Address, Long> {
     }
 
     public List<Address> findAll(){
-        return findAll();
+        return addressRepository.findAll();
     }
 }

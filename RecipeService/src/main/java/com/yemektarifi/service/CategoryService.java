@@ -41,16 +41,7 @@ public class CategoryService extends ServiceManager<Category, String> {
         return responseDto;
     }
     public List<Category> findAll(){
-        return findAll();
-    }
-    public Boolean deleteCategoryById(String token, String categoryId){
-        Optional<String> optionalRole = tokenProvider.getRoleFromToken(token);
-        if(!optionalRole.get().equals(String.valueOf(ERole.ADMIN)))
-            throw new RecipeManagerException(ErrorType.AUTHORIZED_ERROR);
-        if(!categoryRepository.existsByCategoryId(categoryId))
-            throw new RecipeManagerException(ErrorType.CATEGORY_NOT_FOUND);
-        deleteById(categoryId);
-        return true;
+        return categoryRepository.findAll();
     }
 
     public UpdateCategoryResponseDto updateCategory(String token, UpdateCategoryRequestDto dto){

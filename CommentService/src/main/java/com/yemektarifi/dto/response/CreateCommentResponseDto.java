@@ -13,5 +13,5 @@ public class CreateCommentResponseDto {
 
     private String username;
     private String commentText;
-    private Long commentDate;
+    private Long createdDate;
 }

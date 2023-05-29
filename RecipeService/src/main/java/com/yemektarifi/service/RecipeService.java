@@ -47,8 +47,8 @@ public class RecipeService extends ServiceManager<Recipe, String> {
                     @CacheEvict(value = "find-recipe-by-ingredient", allEntries = true)
             },
             put = {
-                    @CachePut(value = "find-recipe-by-recipeName", key = "dto.getRecipeName()"),
-                    @CachePut(value = "find-recipe-by-category", key = "dto.getCategoryIds()")
+                    @CachePut(value = "find-recipe-by-recipeName", key = "#dto.getRecipeName()"),
+                    @CachePut(value = "find-recipe-by-category", key = "#dto.getCategoryIds()")
             }
     )
     public SaveRecipeResponseDto saveRecipe(String token, SaveRecipeRequestDto dto) {
@@ -121,15 +121,15 @@ public class RecipeService extends ServiceManager<Recipe, String> {
         recipe.getImages().removeAll(dto.getRemoveImages());
         recipe.getIngredients().removeAll(dto.getRemoveIngredients());
         recipe.getIngredients().addAll(dto.getAddIngredients());
-        dto.getRemoveCategoryIds().forEach(categoryId -> {
+        dto.getAddCategoryIds().forEach(categoryId -> {
             if (recipe.getCategoryIds().contains(categoryId))
                 throw new RecipeManagerException(ErrorType.THIS_CATEGORY_ALREADY_SAVED);
             recipe.getCategoryIds().add(categoryId);
         });
-        dto.getAddCategoryIds().forEach(categoryId -> {
+        dto.getRemoveCategoryIds().forEach(categoryId -> {
             if (!categoryService.existsByCategoryId(categoryId))
                 throw new RecipeManagerException(ErrorType.CATEGORY_NOT_FOUND);
-            recipe.getCategoryIds().add(categoryId);
+            recipe.getCategoryIds().remove(categoryId);
         });
         update(recipe);
         UpdateRecipeResponseDto responseDto = IRecipeMapper.INSTANCE.fromRecipeToUpdateRecipeResponseDto(recipe);
@@ -239,12 +239,12 @@ public class RecipeService extends ServiceManager<Recipe, String> {
         return true;
     }
 
-    @Cacheable(value = "find-recipe-by-category", key = "#categoryIdList")
-    public List<Recipe> findRecipeByCategory(List<String> categoryIdList) {
+    @Cacheable(value = "find-recipe-by-category", key = "#dto")
+    public List<Recipe> findRecipeByCategory(CategoryIdListRquestDto dto) {
         List<Recipe> recipeList = recipeRepository.findAll();
         Set<Recipe> addRecipeList = new HashSet<>();
-        if (!categoryIdList.isEmpty() && !categoryIdList.get(0).isEmpty()) {
-            categoryIdList.forEach(categoryId -> {
+        if (!dto.getCategoryIdList().isEmpty() && !dto.getCategoryIdList().get(0).isEmpty()) {
+            dto.getCategoryIdList().forEach(categoryId -> {
                 recipeList.forEach(recipe -> {
                     if (recipe.getCategoryIds().contains(categoryId))
                         addRecipeList.add(recipe);
@@ -258,24 +258,24 @@ public class RecipeService extends ServiceManager<Recipe, String> {
         return finalRecipeList;
     }
 
-    @Cacheable(value = "find-recipe-by-ingredient", key = "#ingredientNameList")
-    public List<Recipe> findRecipeByIngredient(List<String> ingredientNameList) {
+    @Cacheable(value = "find-recipe-by-ingredient", key = "#dto")
+    public List<Recipe> findRecipeByIngredient(IngredientNameListRequestDto dto) {
         List<Recipe> recipeList = recipeRepository.findAll();
-        List<Recipe> removeRecipeList = new ArrayList<>();
-        if (!ingredientNameList.isEmpty()) {
-            ingredientNameList.forEach(ingredientName -> {
+        List<Recipe> addRecipeList = new ArrayList<>();
+        if (!dto.getIngredientNameList().isEmpty()) {
+            dto.getIngredientNameList().forEach(ingredientName -> {
                 recipeList.forEach(recipe -> {
                     recipe.getIngredients().forEach(ingredient -> {
-                        if (!ingredientName.isEmpty() && !ingredient.getProductName().equals(ingredientName))
-                            removeRecipeList.add(recipe);
+                        if (!ingredientName.isEmpty() && ingredient.getProductName().equals(ingredientName))
+                            addRecipeList.add(recipe);
                     });
                 });
             });
         } else {
             return recipeList;
         }
-        recipeList.removeAll(removeRecipeList);
-        return recipeList;
+        List<Recipe> finalRecipeList = new ArrayList<>(addRecipeList);
+        return finalRecipeList;
     }
 
     @Cacheable(value = "find-recipe-by-recipeName", key = "#recipeName")
@@ -293,9 +293,15 @@ public class RecipeService extends ServiceManager<Recipe, String> {
     public List<Recipe> findRecipeByFilter(FindRecipeByFilterRequestDto dto) {
         List<Recipe> finalRecipeList = new ArrayList<>();
         List<Recipe> recipeList = recipeRepository.findAll();
+        CategoryIdListRquestDto categoryIdListRquestDto = CategoryIdListRquestDto.builder()
+                .categoryIdList(dto.getCategoryIds())
+                .build();
+        IngredientNameListRequestDto ingredientNameListRequestDto = IngredientNameListRequestDto.builder()
+                .ingredientNameList(dto.getIngredientNames())
+                .build();
         for (Recipe recipe : recipeList) {
-            if (findRecipeByCategory(dto.getCategoryIds()).contains(recipe) &&
-                    findRecipeByIngredient(dto.getIngredientNames()).contains(recipe) &&
+            if (findRecipeByCategory(categoryIdListRquestDto).contains(recipe) &&
+                    findRecipeByIngredient(ingredientNameListRequestDto).contains(recipe) &&
                     findRecipeByRecipeName(dto.getRecipeName()).contains(recipe))
                 finalRecipeList.add(recipe);
         }

@@ -7,13 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SaveRecipeResponseDto {
+public class SaveRecipeResponseDto implements Serializable {
 
     private String recipeName;
     private List<String> types;

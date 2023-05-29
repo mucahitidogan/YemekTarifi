@@ -65,7 +65,7 @@ public class AuthService extends ServiceManager<Auth, Long> {
     }
 
     public List<Auth> findAll(){
-        return findAll();
+        return authRepository.findAll();
     }
 
     public Boolean activateStatus(ActivateStatusRequestDto dto){

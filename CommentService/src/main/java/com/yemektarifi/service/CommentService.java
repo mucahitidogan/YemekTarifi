@@ -59,7 +59,7 @@ public class CommentService extends ServiceManager<Comment, String> {
     }
 
     public List<Comment> findAll(){
-        return findAll();
+        return commentRepository.findAll();
     }
 
     public Boolean deleteComment(String token, DeleteCommentRequestDto dto) {

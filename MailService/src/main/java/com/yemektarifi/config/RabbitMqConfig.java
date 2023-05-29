@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
-    @Value("${rabbitmq.queueActivate}")
-    String queueActivate;
+    //@Value("${rabbitmq.queueActivate}")
+    String queueActivate = "activate-queue";
 
-    @Value("${rabbitmq.forgotPasswordQueue}")
-    String forgotPasswordQueue;
+    //@Value("${rabbitmq.forgotPasswordQueue}")
+    String forgotPasswordQueue = "forgot-password-queue";
 
-    @Value("${rabbitmq.queue-favorite}")
-    String queueNameFavorite;
+    //@Value("${rabbitmq.queue-favorite}")
+    String queueNameFavorite = "favorite-queue";
 
     @Bean
     Queue queueActivate(){

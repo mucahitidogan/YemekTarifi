@@ -5,6 +5,7 @@ import com.yemektarifi.dto.response.RegisterResponseDto;
 import com.yemektarifi.repository.entity.Address;
 import com.yemektarifi.repository.entity.Auth;
 import com.yemektarifi.service.AuthService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(dto));
     }
 
+    @Hidden
     @PutMapping(CHANGE_PASSWORD)
     public ResponseEntity<Boolean> changePassword(@RequestBody FromUserProfileChangePasswordRequestDto dto){
         return ResponseEntity.ok(authService.changePassword(dto));
@@ -51,12 +53,14 @@ public class AuthController {
         return ResponseEntity.ok(authService.forgotPassword(email, username));
     }
 
-    @PutMapping("/update-auth")
+    @Hidden
+    @PutMapping(UPDATE_AUTH)
     public ResponseEntity<Boolean> updateAuth(@RequestBody FromUserProfileServiceUpdateAuthRequestDto dto){
         return ResponseEntity.ok(authService.updateAuth(dto));
     }
 
-    @DeleteMapping( "delete-by-authId/{authId}")
+    @Hidden
+    @DeleteMapping( DELETE_BY_AUTHID+"/{authId}")
     public ResponseEntity<Boolean> deleteByAuthId(@PathVariable Long authId){
         return ResponseEntity.ok(authService.deleteByAuthId(authId));
     }

@@ -58,7 +58,7 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
     }
 
     public List<UserProfile> findAll(){
-        return findAll();
+        return userProfileRepository.findAll();
     }
 
     public Boolean changePassword(ChangePasswordRequestDto dto){
@@ -89,8 +89,8 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
         return true;
     }
 
-    public UserProfile update(UserProfileUpdateRequestDto dto){
-        Optional<Long> authId = tokenProvider.getIdFromToken(dto.getToken());
+    public UserProfile update(String token, UserProfileUpdateRequestDto dto){
+        Optional<Long> authId = tokenProvider.getIdFromToken(token);
         if(authId.isEmpty())
             throw new UserManagerException(ErrorType.INVALID_TOKEN);
         Optional<UserProfile> optionalUserProfile = userProfileRepository.findOptionalByAuthId(authId.get());

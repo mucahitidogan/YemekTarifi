@@ -2,6 +2,7 @@ package com.yemektarifi.controller;
 import com.yemektarifi.dto.request.FromUserProfileServiceUpdateAddressRequestDto;
 import com.yemektarifi.repository.entity.Address;
 import com.yemektarifi.service.AddressService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ public class AddressController  {
 
     private final AddressService addressService;
 
-    @PutMapping("/update-address")
+    @Hidden
+    @PutMapping(UPDATE_ADDRESS)
     public ResponseEntity<Boolean> updateAddress(@RequestBody FromUserProfileServiceUpdateAddressRequestDto dto){
         return ResponseEntity.ok(addressService.updateAddress(dto));
     }

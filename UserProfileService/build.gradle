@@ -7,5 +7,6 @@ buildscript {
 dependencies {
     implementation libs.mongoDB
     implementation libs.springBootRabbitMQ
+    implementation libs.springCloudConfigClient
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
