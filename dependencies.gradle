@@ -43,7 +43,7 @@ ext {
             springCloudConfigClient     : "org.springframework.cloud:spring-cloud-config-client:$versions.springCloud",
             springCloudConfigStarter    : "org.springframework.cloud:spring-cloud-starter-config:$versions.springCloud",
 
-            //elasticsearch
-            //springBootElasticSearch: "org.springframework.boot:spring-boot-starter-data-elasticsearch:$versions.springBoot"
+            //Zipkin
+            springCloudZipkin           : "org.springframework.cloud:spring-cloud-sleuth-zipkin:${versions.springCloud}"
     ]
 }
